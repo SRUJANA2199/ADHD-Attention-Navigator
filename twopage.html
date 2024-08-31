@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Page</title>
+    <style>
+        body {
+            background-image: url('pic10.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center; /* Optional: Center the background image */
+            height: 100vh; /* Set the height to 100% of the viewport height */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            scroll-snap-type: y mandatory; /* Enable vertical snapping */
+            overflow: hidden; /* Prevent scrolling */
+            position: relative; 
+            cursor:none;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 80%;
+        }
+
+        .box {
+            width: 200px;
+            height: 150px;
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Adjust the position of the circle container */
+        #circleContainer {
+            position: fixed;
+            pointer-events: none; /* Ensure the circle doesn't interfere with mouse events */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" id="box1">
+            <h2 id="text1">BIonic</h2>
+            <h2 id="text2">And</h2>
+            <h2 id="text3">FOcus MOde</h2>
+            
+            
+        </div>
+        <div class="box">
+            <h2 id="text4">GRaph</h2>
+            <h2 id="text5">VIew</h2>
+           
+        </div>
+        
+    </div>
+    <!-- Move the circle container outside of the main content -->
+    <div class="extra-content" id="circleContainer">
+        <!-- Using SVG tag -->
+        <svg id="circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+        </svg>
+    </div>
+
+    <script>
+        var circleContainer = document.getElementById('circleContainer');
+
+        // Add mousemove event listener to the body
+        document.body.addEventListener('mousemove', function(e) {
+            // Set the position of the SVG element to the current mouse position
+            circleContainer.style.left = e.pageX + 'px';
+            circleContainer.style.top = e.pageY + 'px';
+            
+            // Check if cursor is near the bottom of the viewport
+            if (window.innerHeight - e.clientY < 50) {
+                // Scroll down
+                window.scrollBy(0, 10); // Adjust the scrolling speed if needed
+            }
+        });
+
+        // Add click event listener to each text element inside the first box
+        document.getElementById('text1').addEventListener('click', function() {
+            window.location.href = 'thirdpage.html';
+        });
+        document.getElementById('text2').addEventListener('click', function() {
+            window.location.href = 'thirdpage.html';
+        });
+        document.getElementById('text3').addEventListener('click', function() {
+            window.location.href = 'thirdpage.html';
+        });
+        document.getElementById('text4').addEventListener('click', function() {
+            window.location.href = 'fourthpage.html';
+        });
+        document.getElementById('text5').addEventListener('click', function() {
+            window.location.href = 'fourthpage.html';
+        });
+    </script>
+</body>
+</html>

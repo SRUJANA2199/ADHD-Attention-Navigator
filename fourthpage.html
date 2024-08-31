@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dynamic Network</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style type="text/css">
+    #mynetwork {
+      width: 1220px;
+      height: 500px;
+      border: 1px solid lightgray;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <label for="textInput">Enter Text:</label>
+    <textarea id="textInput" rows="4"></textarea>
+    <button onclick="addNodes()">Add Nodes</button>
+  </div>
+  <div id="mynetwork"></div>
+  <script type="text/javascript">
+    var nodes = new vis.DataSet([]);
+    var edges = new vis.DataSet([]);
+
+    var container = document.getElementById("mynetwork");
+    var data = {
+      nodes: nodes,
+      edges: edges
+    };
+    var options = {};
+    var network = new vis.Network(container, data, options);
+
+    function getRandomPosition() {
+      var x = Math.floor(Math.random() * 1000) + 100; // Adjust these values based on your needs
+      var y = Math.floor(Math.random() * 400) + 100;
+      return { x: x, y: y };
+    }
+
+    function addNodes() {
+      var textInput = document.getElementById("textInput").value.trim();
+      if (textInput) {
+        var nodeNames = textInput.split(/\s*[\n,]+\s*/);
+        var existingNodeCount = nodes.length;
+        var newNodes = [];
+
+        for (var i = 0; i < nodeNames.length; i++) {
+          var newNodeId = existingNodeCount + i + 1;
+          var position = getRandomPosition();
+          newNodes.push({ id: newNodeId, label: nodeNames[i], x: position.x, y: position.y });
+          edges.add({ from: 1, to: newNodeId });
+        }
+
+        nodes.add(newNodes);
+        document.getElementById("textInput").value = ""; // Clear the input field
+      }
+    }
+  </script>
+</body>
+</html>
